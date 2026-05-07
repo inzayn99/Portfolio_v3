@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#424242" />
+                <title>Smart Hospital & Research Center</title>
+        <link href="../uploads/hospital_content/logo/0mini_logo.png" rel="shortcut icon" type="image/x-icon">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="../backend/usertemplate/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../backend/usertemplate/assets/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../backend/usertemplate/assets/css/form-elements.css">
+        <link rel="stylesheet" href="../backend/usertemplate/assets/css/style.css">
+        <link rel="stylesheet" href="../backend/usertemplate/assets/css/jquery.mCustomScrollbar.min.css">
+        <style type="text/css">
+            .width100, .width50{font-size: 12px !important;}  
+            .discover{margin-top: -90px;position: relative;z-index: -1;}
+            /*.form-bottom {box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.35);}*/
+            .gradient{margin-top: 40px;text-align: right;padding: 10px;background: rgb(72,72,72);
+                      background: -moz-linear-gradient(left, rgba(72,72,72,1) 1%, rgba(73,73,73,1) 44%, rgba(73,73,73,1) 100%);
+                      background-image: linear-gradient(to right, rgba(72, 72, 72, 0.23) 1%, rgba(37, 37, 37, 0.64) 44%, rgba(73, 73, 73, 0) 100%);
+                      background-position-x: initial;
+                      background-position-y: initial;
+                      background-size: initial;
+                      background-repeat-x: initial;
+                      background-repeat-y: initial;
+                      background-attachment: initial;
+                      background-origin: initial;
+                      background-clip: initial;
+                      background-color: initial;
+                      background: -webkit-linear-gradient(left, rgba(72,72,72,1) 1%,rgb(73, 73, 73) 44%,rgba(73,73,73,1) 100%);
+                      background: linear-gradient(to right, rgba(72, 72, 72, 0.02) 1%,rgba(37, 37, 37, 0.67) 30%,rgba(73, 73, 73, 0) 100%);
+                      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#484848', endColorstr='#494949',GradientType=1 );}        
+            @media (min-width: 320px) and (max-width: 991px){
+                .width100{width: 100% !important;display: block !important;
+                          float: left !important; margin-bottom: 5px !important;
+                          border-radius: 2px !important;}
+                .width50{width: 50% !important;
+                         margin-bottom: 5px !important;
+                         display: block !important;
+                         border-radius:2px 0px 0px 2px !important;
+                         float: left !important;
+                         margin-left: 0px !important; }
+                .widthright50{width: 50% !important;
+                              display: block !important;
+                              margin-bottom: 5px !important;
+                              border-radius: 0px 2px 2px 0px !important;
+                              float: left !important;margin-left: 0px !important;} }
+            input[type="text"], input[type="password"], textarea, textarea.form-control {
+                height: 40px;border: 1px solid #999;}
+
+            input[type="text"]:focus, input[type="password"]:focus, textarea:focus, textarea.form-control:focus {border: 1px solid #424242;}
+
+            button.btn {height: 40px;line-height: 40px;}
+
+            @media(max-width:767px){
+                .discover{margin-top: 10px}
+                .gradient {text-align: center;}
+                .logowidth{padding-right:0px;}     
+            }  
+            @media(min-width:768px) and (max-width:992px){
+                .discover{margin-top: 10px}
+                .logowidth{padding-right:0px;} 
+                .gradient {text-align: center;}  
+            }
+
+            .backstretch{position: relative;}
+            .backstretch:after {
+                position: absolute;
+                z-index: 2;
+                width: 100%;
+                height: 100%;
+                display: block;
+                left: 0;
+                top: 0;
+                content: "";
+                background-color: rgba(0, 0, 0, 0.80);
+            }
+            .col-md-offset-3 { margin-left: 29%;}
+
+            .loginbg {
+                background: rgba(0, 0, 0, 0.81);
+                max-height: 440px;
+                box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.29);
+                border-radius: 4px;
+            }
+            .loginright {
+                text-align: left;
+                color: #fff;
+                max-height: 385px;
+                /* padding-right: 20px; */
+                overflow: auto;
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                height: 385px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            .logdivider {
+                background: rgba(255, 253, 253, 0.7);
+                clear: both;
+                width: 100%;
+                height: 1px;
+                margin: 15px 0 15px;
+            }
+
+            .separatline {
+                margin-left: 30px;
+                width: 1px;
+                height: 450px;
+                background: rgba(255, 253, 253, 0.7);
+            }
+            .loginright h3 {
+                font-size: 22px;
+                color: #eae8e8;
+                margin-top: 10px;
+                line-height: normal;
+                font-weight: 500;
+                padding-bottom: 10px;
+            }
+            .col-md-offset-3 { margin-left: 29%;}
+            a.forgot {padding-top:0px;}
+            @media (max-width: 767px) {
+                .separatline {
+                    margin-left: 0;
+                    width: 100%;
+                    height: 2px;
+                    margin: 35px auto 0px auto;
+                }
+                .col-md-offset-3 {margin-left: 0;}
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Top content -->
+        <div class="top-content">
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                                                <div class="col-lg-5 col-sm-5  form-box">
+                            <div class="loginbg">
+                                <div class="form-top">
+                                                                        <div class="form-top-left">
+                                        <img src="../uploads/hospital_content/logo/0.png" class="logowidth">
+
+                                    </div>
+                                    <div class="form-top-right"> <i class="fa fa-key"></i>
+                                    </div>
+                                </div>
+                                <div class="form-bottom">
+                                    <h3 class="font-white">User Login</h3>
+                                                                                                            <form action="https://demo.smart-hospital.in/site/userlogin" method="post">
+                                        <input type='hidden' name='ci_csrf_token' value=''/>                                        <div class="form-group">
+                                            <label class="sr-only" for="form-username">
+                                                Username</label>
+                                            <input type="text" name="username" placeholder="Username" value="pat1" class="form-username form-control" id="email"> <span class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">                                        
+                                            <input type="password" name="password" placeholder="Password" value="password" class="form-password form-control" id="password"> <span class="text-danger"></span>
+                                        </div>
+                                                                                <button type="submit" class="btn">
+                                            Sign In</button>
+                                    </form>
+                                                                        <p style="margin-top: 20px;"><a style="color:#fff;" target="_blank" href="login.html" class="forgot pull-right"> <i class="fa fa-user"></i> Admin Login</a> <a style="color:#fff;padding-right: 20px;" href="../index.html" target="_blank" class="forgot pull-right"> <i class="fa fa-empire"></i> Front Site</a>
+                                    </p> 
+
+                                    <p><a href="ufpassword.html"  class="forgot"> <i class="fa fa-key"></i> Forgot Password</a> </p>
+                                </div>
+                            </div>  
+                        </div>
+                                                    <div class="col-lg-1 col-sm-1"><div class="separatline"></div></div> 
+                            <div class="col-lg-6 col-sm-6 col-sm-6">
+                                <div class="loginright form-box  mCustomScrollbar">
+                                    <div class="messages">    
+                                        <h3>What"s new in Smart Hospital & Research Center</h3>
+                                                                                    <h4>Healthy Vision Month 2024: Reframe Your Future</h4>
+
+                                            <p>Healthy Vision Month 2024 encourages everyone to take proactive steps in eye care and support those... <a class=more href="../read/healthy-vision-month-2024-reframe-your-future.html">Read More</a></p>                                            <div class="logdivider"></div>
+                                                                                        <h4>Keeping babies and children protected in scorching heat wave</h4>
+
+                                            <p>As extreme heat continues this week across our region, it’s critical to monitor your children —... <a class=more href="../read/keeping-babies-and-children-protected-in-scorching-heat-wave.html">Read More</a></p>                                            <div class="logdivider"></div>
+                                                                                        <h4>Heart pain and abdominal pain can be caused by anxiety disorder</h4>
+
+                                            <p>Patients experiencing sudden chest pain or severe abdominal pain requiring hospitalisation and... <a class=more href="../read/heart-pain-and-abdominal-pain-can-be-caused-by-anxiety-disorder.html">Read More</a></p>                                            <div class="logdivider"></div>
+                                                                                        <h4>Health Systems Creating Benchmark for Health Equity</h4>
+
+                                            <p>Anyone who has used roadside navigation knows there are multiple directions you can take toward a... <a class=more href="../read/health-systems-creating-benchmark-for-health-equity.html">Read More</a></p>                                            <div class="logdivider"></div>
+                                                                                        <h4>Dengue Diagnostic Guidelines</h4>
+
+                                            <p>Clinical findings include nausea, vomiting, rash, aches and pains, a positive tourniquet test,... <a class=more href="../read/dengue-diagnostic-guidelines.html">Read More</a></p>                                            <div class="logdivider"></div>
+                                            
+
+
+
+                                    </div>  
+                                </div>
+                            </div><!--./col-lg-6-->
+                                                </div>
+                </div>
+            </div>
+        </div>
+        <script src="../backend/usertemplate/assets/js/jquery-1.11.1.min.js"></script>
+        <script src="../backend/usertemplate/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../backend/usertemplate/assets/js/jquery.backstretch.min.js"></script>
+        <script src="../backend/usertemplate/assets/js/jquery.mCustomScrollbar.min.js"></script>
+        <script src="../backend/usertemplate/assets/js/jquery.mousewheel.min.js"></script>
+    </body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var base_url = 'https://demo.smart-hospital.in/';
+        $.backstretch([
+            base_url + "backend/usertemplate/assets/img/backgrounds/user15.jpg"
+        ], {duration: 3000, fade: 750});
+        $('.login-form input[type="text"], .login-form input[type="password"], .login-form textarea').on('focus', function () {
+            $(this).removeClass('input-error');
+        });
+        $('.login-form').on('submit', function (e) {
+            $(this).find('input[type="text"], input[type="password"], textarea').each(function () {
+                if ($(this).val() == "") {
+                    e.preventDefault();
+                    $(this).addClass('input-error');
+                } else {
+                    $(this).removeClass('input-error');
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    function refreshCaptcha(){
+        $.ajax({
+            type: "POST",
+            url: "https://demo.smart-hospital.in/site/refreshCaptcha",
+            data: {},
+            success: function(captcha){
+                $("#captcha_image").html(captcha);
+            }
+        });
+    }    
+</script>

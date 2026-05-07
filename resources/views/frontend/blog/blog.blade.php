@@ -1,0 +1,9 @@
+@extends('frontend.layouts.app')
+@push('styles')
+@endpush
+@section('meta')
+    @include('frontend.includes.meta')
+@endsection
+@section('content')
+  <h1>blog</h1>
+@endsection
