@@ -2,129 +2,67 @@
 @push('styles')
 @endpush
 @section('content')
-    <div class="content-wrapper" style="min-height: 272px;" bis_skin_checked="1">
+    <div class="content-wrapper" style="min-height: 272px;">
         <section class="content">
-            <div class="row" bis_skin_checked="1">
-                <div class="col-md-12" bis_skin_checked="1">
-                    <!-- general form elements -->
-                    <div class="box box-primary" bis_skin_checked="1">
-                        <div class="box-header ptbnull" bis_skin_checked="1">
-                            <h3 class="box-title titlefix">Create Blog Category</h3>
-                            <div class="box-tools pull-right" bis_skin_checked="1">
-                                <a data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-sm addvisitor"><i
-                                        class="fa fa-plus"></i> Add new Blog Category</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header ptbnull">
+                            <h3 class="box-title titlefix">Blog Categories</h3>
+                            <div class="box-tools pull-right">
+                                <button id="newCatBtn" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-plus"></i> Add New Category
+                                </button>
                             </div>
                         </div>
-                        <div class="box-body" bis_skin_checked="1">
-                            <div class="download_label" bis_skin_checked="1">Create Blog Category</div>
-                            <div class="table-responsive mailbox-messages" bis_skin_checked="1">
-                                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer"
-                                    bis_skin_checked="1">
-                                    <div class="top" bis_skin_checked="1">
-                                        <div id="DataTables_Table_0_filter" class="dataTables_filter" bis_skin_checked="1">
-                                            <label><input type="search" class="" placeholder="Search..."
-                                                    aria-controls="DataTables_Table_0" autocomplete="off"></label>
-                                        </div>
-                                    </div>
-
-                                    <div id="DataTables_Table_0_processing" class="dataTables_processing"
-                                        style="display: none;" bis_skin_checked="1">
-                                        <i class="fa fa-spinner fa-spin fa-1x fa-fw"></i><span
-                                            class="sr-only">Loading...</span>
-                                    </div>
-                                    <div bis_skin_checked="1">
-                                        <table
-                                            class="table table-hover table-striped table-bordered ajaxlist dataTable no-footer"
-                                            data-export-title="Visitor List" id="DataTables_Table_0" role="grid"
-                                            aria-describedby="DataTables_Table_0_info" style="width: 1353px;">
-                                            <thead>
-                                                <tr role="row">
-
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                        rowspan="1" colspan="1" style="width: 50px;"
-                                                        aria-label="ID: activate to sort column ascending">ID</th>
-
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                        rowspan="1" colspan="1" style="width: 500px;"
-                                                        aria-label="Name: activate to sort column ascending">Title</th>
-
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                        rowspan="1" colspan="1" style="width: 116px;"
-                                                        aria-label="Date: activate to sort column ascending">Date</th>
-
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                        rowspan="1" colspan="1" style="width: 116px;"
-                                                        aria-label="Date: activate to sort column ascending">Update</th>
-
-                                                    <th class="sorting" tabindex="0"
-                                                        aria-controls="DataTables_Table_0"rowspan="1" colspan="1"
-                                                        style="width: 50px;"
-                                                        aria-label="Visit To: activate to sort column ascending">Status
-                                                    </th>
-                                                    <th class="text-right noExport dt-body-right sorting_disabled"
-                                                        rowspan="1" colspan="1" style="width: 40px;"
-                                                        aria-label="Action">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @if (count($blogs) == 0)
-                                                    <tr>
-                                                        <td colspan="7">
-                                                            <p class="text-center">
-                                                                No any records.
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                @else
-                                                    @foreach ($blogs as $service)
-                                                        <tr role="row" class="odd">
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $service->title }}</td>
-                                                            <td>{{ $service->created_at->format('m/d/Y h:i A') }}</td>
-                                                            <td>{{ $service->updated_at->format('m/d/Y h:i A') }}</td>
-                                                            <td>
-                                                                @if ($service->publish_status == 1)
-                                                                    <small
-                                                                    class="label label-success">Published</small>@else<small
-                                                                        class="label label-danger">UnPublish</small>
-                                                                @endif
-                                                            </td>
-                                                            <td class=" dt-body-right">
-                                                                <a href="{{ route('blog-category.edit', $service->id) }}"
-                                                                    class="btn btn-default btn-xs pull-right"
-                                                                    data-toggle="tooltip" title="Edit"
-                                                                    onclick="get(249)"><i class="las la-pencil-alt"
-                                                                        aria-hidden="true"></i></a>
-
-                                                                <!--- Delete --->
-                                                                <a href="javascript:void(0);"
-                                                                    class="delete-item btn btn-default btn-xs pull-right"
-                                                                    title="Delete=" data-id="{{ $service->id }}">
-                                                                    <i class="las la-trash"></i>
-                                                                </a>
-
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- pagination -->
-                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status"
-                                        aria-live="polite" bis_skin_checked="1">Records: {{ $blogs->firstItem() }}
-                                        to
-                                        {{ $blogs->lastItem() }} of {{ $blogs->total() }}</div>
-                                    <div class="dataTables_paginate paging_simple_numbers" bis_skin_checked="1">
-
-                                        <a class="paginate_button previous disabled" aria-controls="DataTables_Table_0"
-                                            data-dt-idx="0" tabindex="0"><i class="fa fa-angle-left"></i></a>
-                                        <span><a class="paginate_button current" aria-controls="DataTables_Table_0"
-                                                data-dt-idx="1" tabindex="0">1</a>
-                                        </span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0"
-                                            data-dt-idx="2" tabindex="0"><i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped table-bordered" id="catTable">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50px;">#</th>
+                                            <th>Title</th>
+                                            <th>Posts</th>
+                                            <th>Status</th>
+                                            <th>Created</th>
+                                            <th class="text-right" style="width:80px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($blogs as $cat)
+                                            <tr id="cat_row_{{ $cat->id }}">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $cat->title }}</td>
+                                                <td>{{ $cat->blogs_count }} posts</td>
+                                                <td>
+                                                    @if($cat->publish_status == 1)
+                                                        <small class="label label-success">Published</small>
+                                                    @else
+                                                        <small class="label label-danger">Draft</small>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $cat->created_at->format('m/d/Y') }}</td>
+                                                <td class="text-right">
+                                                    <button class="btn btn-default btn-xs edit-cat" data-id="{{ $cat->id }}" title="Edit">
+                                                        <i class="las la-pen"></i>
+                                                    </button>
+                                                    <button class="btn btn-default btn-xs delete-cat" data-id="{{ $cat->id }}" title="Delete">
+                                                        <i class="las la-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center" style="padding:30px; color:#aaa;">
+                                                    No categories yet.
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top:10px;">
+                                {{ $blogs->links() }}
                             </div>
                         </div>
                     </div>
@@ -132,82 +70,137 @@
             </div>
         </section>
     </div>
-    <!--------------- modal --------------->
+
     @include('backend.blog-category.form')
 @endsection
+
 @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#createSliderForm').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '{{ route('blog-category.store') }}',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        // handle success
-                        $('#createSliderModal').modal('hide');
-                        location.reload();
-                    },
-                    error: function(response) {
-                        // handle error
-                        let errors = response.responseJSON.errors;
-                        for (let key in errors) {
-                            alert(errors[key][0]);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $('#summernote').summernote({
-            height: 80,
-            placeholder: "Blog category content.."
-        });
-    </script>
-    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('.lfm').filemanager('image');
+<script>
+$(document).ready(function () {
 
-        });
-    </script>
-    <!-- for-delete -->
-    <script>
-        $(document).ready(function() {
-            // Delete item
-            $('.delete-item').click(function(e) {
-                e.preventDefault();
-                var itemId = $(this).data('id');
-                var url = '{{ route('blog-category.destroy', ':id') }}';
-                url = url.replace(':id', itemId);
+    var storeUrl  = '{{ route("blog-category.store") }}';
+    var updateUrl = '{{ route("blog-category.update", ":id") }}';
+    var showUrl   = '{{ route("blog-category.show", ":id") }}';
 
-                if (confirm('Are you sure you want to delete this item?')) {
-                    $.ajax({
-                        url: url,
-                        type: 'DELETE',
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                $('#expert_' + itemId).remove(); // Remove the item from the DOM
-                                toastr.success('Item deleted successfully.');
-                                location.reload(); // Reload the page
-                            } else {
-                                toastr.error('Failed to delete item.');
-                            }
-                        },
-                        error: function(xhr) {
-                            toastr.error('An error occurred while deleting the item.');
-                        }
-                    });
+    // ── New ───────────────────────────────────────────────────────
+    $('#newCatBtn').on('click', function () {
+        openCatModal(null);
+    });
+
+    // ── Edit ──────────────────────────────────────────────────────
+    $(document).on('click', '.edit-cat', function () {
+        var id  = $(this).data('id');
+        var btn = $(this);
+        btn.prop('disabled', true);
+        $.getJSON(showUrl.replace(':id', id), function (cat) {
+            btn.prop('disabled', false);
+            openCatModal(cat);
+        }).fail(function () {
+            btn.prop('disabled', false);
+            toastr.error('Could not load category data.');
+        });
+    });
+
+    // ── Open modal ────────────────────────────────────────────────
+    function openCatModal(cat) {
+        var isEdit = !!cat;
+
+        document.getElementById('catModalForm').reset();
+
+        $('.cat-dropify').each(function () {
+            var d = $(this).data('dropify');
+            if (d) d.destroy();
+        });
+
+        if (isEdit) {
+            $('#catModalTitle').html('<i class="las la-pen" style="color:#3c8dbc"></i> Edit Category');
+            $('#catSaveTxt').text('Update Category');
+            $('#catModalForm').attr('action', updateUrl.replace(':id', cat.id));
+            $('#catMethod').val('PUT');
+
+            $('#catTitle').val(cat.title || '');
+            $('#catSlugVal').text(cat.slug || '—');
+            $('#catDescription').val(cat.description || '');
+            $('#catMetaTitle').val(cat.meta_title || '');
+            $('#catMetaKeywords').val(cat.meta_keywords || '');
+            $('#catMetaDesc').val(cat.meta_description || '');
+            $('#catPublish').prop('checked', cat.publish_status == 1);
+
+            setCatImg('catImgCurrent', 'catImgCurrentImg', cat.image);
+            setCatImg('catOgCurrent',  'catOgCurrentImg',  cat.og_image);
+        } else {
+            $('#catModalTitle').html('<i class="las la-plus-circle" style="color:#3c8dbc"></i> New Category');
+            $('#catSaveTxt').text('Save Category');
+            $('#catModalForm').attr('action', storeUrl);
+            $('#catMethod').val('POST');
+            $('#catSlugVal').text('—');
+            $('#catImgCurrent, #catOgCurrent').hide();
+        }
+
+        $('#catModal').modal('show');
+    }
+
+    function setCatImg(wrapId, imgId, src) {
+        if (src) {
+            $('#' + imgId).attr('src', src.indexOf('http') === 0 ? src : window.location.origin + '/' + src);
+            $('#' + wrapId).show();
+        } else {
+            $('#' + wrapId).hide();
+        }
+    }
+
+    // ── Modal shown: init dropify ─────────────────────────────────
+    $('#catModal').on('shown.bs.modal', function () {
+        $('.cat-dropify').dropify({
+            messages: { 'default': 'Drag & drop or click to upload', 'replace': 'Drop to replace', 'remove': 'Remove', 'error': 'Error' }
+        });
+    });
+
+    // ── Title → slug ──────────────────────────────────────────────
+    $(document).on('input', '#catTitle', function () {
+        var slug = $(this).val().toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+        $('#catSlugVal').text(slug || '—');
+    });
+
+    // ── Form submit ───────────────────────────────────────────────
+    $('#catModalForm').on('submit', function (e) {
+        e.preventDefault();
+        var fd = new FormData(this), btn = $('#catSaveBtn'), txt = $('#catSaveTxt').text();
+        btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Saving…');
+        $.ajax({
+            url: $(this).attr('action'), method: 'POST', data: fd,
+            processData: false, contentType: false,
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}', 'X-Requested-With': 'XMLHttpRequest' },
+            success: function () {
+                $('#catModal').modal('hide');
+                toastr.success('Saved successfully!');
+                setTimeout(function () { location.reload(); }, 700);
+            },
+            error: function (res) {
+                btn.prop('disabled', false).html('<i class="las la-save"></i> <span id="catSaveTxt">' + txt + '</span>');
+                var errors = res.responseJSON && res.responseJSON.errors;
+                toastr.error(errors ? Object.values(errors)[0][0] : 'Something went wrong.');
+            }
+        });
+    });
+
+    // ── Delete ────────────────────────────────────────────────────
+    $(document).on('click', '.delete-cat', function () {
+        var id  = $(this).data('id');
+        var url = '{{ route("blog-category.destroy", ":id") }}'.replace(':id', id);
+        if (!confirm('Delete this category?')) return;
+        $.ajax({
+            url: url, type: 'DELETE', data: { _token: '{{ csrf_token() }}' },
+            success: function (res) {
+                if (res.success) {
+                    $('#cat_row_' + id).fadeOut(300, function () { $(this).remove(); });
+                    toastr.success('Deleted.');
                 }
-            });
+            },
+            error: function () { toastr.error('Failed to delete.'); }
         });
-    </script>
+    });
+
+});
+</script>
 @endpush

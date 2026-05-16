@@ -73,7 +73,10 @@ class FrontController extends Controller
                             </a>
                         </h5>
                     </div>
-                    <time class="post-date">' . \Carbon\Carbon::parse($blog->created_at)->format('F d, Y') . '</time>
+                    <div class="post-meta-row">
+                        <time class="post-date">' . \Carbon\Carbon::parse($blog->created_at)->format('F d, Y') . '</time>
+                        <span class="reading-time"><i class="fa-regular fa-clock"></i> ' . $blog->reading_time . ' min read</span>
+                    </div>
                     <div class="blog-post-content">
                         <p>' . e(\Illuminate\Support\Str::limit(strip_tags($blog->description), 120)) . '</p>
                     </div>
@@ -95,7 +98,10 @@ class FrontController extends Controller
         $recents  = Blog::status()->take(10)->latest()->get();
         $blog->page_visit += 1;
         $blog->update();
-        // $blogCats = BlogCategory::where('publish_status',1)->take(7)->latest()->get();
+
+        $prev = Blog::status()->where('id', '<', $blog->id)->orderBy('id', 'desc')->first();
+        $next = Blog::status()->where('id', '>', $blog->id)->orderBy('id', 'asc')->first();
+
         $meta = [
             'meta_title' => $blog->meta_title ? $blog->meta_title : $blog->title,
             'meta_keyword' => $blog->meta_keywords ? $blog->meta_keywords : $blog->title,
@@ -103,7 +109,7 @@ class FrontController extends Controller
             'og_image' => Storage::disk('uploads')->url($blog->og_image ? $blog->og_image : $blog->cover_image),
             'og_site_name' => companydata('company_name'),
         ];
-        return view('frontend.blog.show',compact('blog','meta','recents'));
+        return view('frontend.blog.show',compact('blog','meta','recents','prev','next'));
     }
 
 

@@ -12,6 +12,39 @@
             <img src="{{ asset('frontend/assets/images/deploy.svg') }}" alt="image" />
         </div> --}}
 
+        {{-- Spotify now-playing --}}
+        <a class="spotify-badge" id="spotifyBadge" href="#" target="_blank" style="display:none;">
+            <img class="spotify-cover" id="spotifyCover" src="" alt="" />
+            <div class="spotify-info">
+                <div class="spotify-label">
+                    <svg class="spotify-logo" viewBox="0 0 24 24" fill="#1DB954" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                    <span class="spotify-now">NOW PLAYING</span>
+                </div>
+                <div class="spotify-track" id="spotifyTrack">—</div>
+                <div class="spotify-artist" id="spotifyArtist">—</div>
+            </div>
+        </a>
+
+        {{-- GitHub stats --}}
+        <div class="gh-stats" id="ghStats">
+            <span class="gh-stat" id="ghRepos">
+                <i class="fa-solid fa-code-branch"></i>
+                <span class="gh-val">—</span>
+                <span class="gh-label">repos</span>
+            </span>
+            <span class="gh-divider">·</span>
+            <span class="gh-stat" id="ghStars">
+                <i class="fa-regular fa-star"></i>
+                <span class="gh-val">—</span>
+                <span class="gh-label">stars</span>
+            </span>
+            <span class="gh-divider">·</span>
+            <span class="gh-stat" id="ghLang">
+                <i class="fa-solid fa-code"></i>
+                <span class="gh-val">—</span>
+            </span>
+        </div>
+
         <div id="sound">
             <i class="fa-brands fa-soundcloud sound-cloud"></i>
             <span>Sound</span>
@@ -64,6 +97,13 @@
                             </div>
                         </a>
                         <span class="tag-dec">&lt;/div&gt;</span>
+
+
+                        {{-- Visitor counter --}}
+                        {{-- <div class="online-now" id="onlineNow">
+                            <span class="online-dot"></span>
+                            <span id="onlineCount">1</span> viewing right now
+                        </div> --}}
 
                         <span class="tag-dec tag-dec--top">&lt;/body&gt;</span>
                         <span class="tag-dec">&lt;/html&gt;</span>
@@ -206,15 +246,17 @@
                             <span class="tag-dec">&lt;articles&gt;</span>
                             <article class="post-articles">
                                 <div class="blog-post-title">
-                                    <h5>
+                                    <h3 style="font-size:inherit; font-weight:inherit; margin:0;">
                                         <a href="{{ route('blogs', $data->slug) }}" target="blank"
                                             style="color: {{ $data->color }}">
                                             {{ $data->title }}
                                         </a>
-                                    </h5>
+                                    </h3>
                                 </div>
-                                <time
-                                    class="post-date">{{ \Carbon\Carbon::parse($data->created_at)->format('F d, Y') }}</time>
+                                <div class="post-meta-row">
+                                    <time class="post-date">{{ \Carbon\Carbon::parse($data->created_at)->format('F d, Y') }}</time>
+                                    <span class="reading-time"><i class="fa-regular fa-clock"></i> {{ $data->reading_time }} min read</span>
+                                </div>
                                 <div class="blog-post-content">
                                     <p>{!! Str_limit(strip_tags($data->description), 120) !!}</p>
                                 </div>
@@ -255,6 +297,19 @@
                 <div class="content inner-top">
                     <div class="row">
                         <div class="col-lg-12">
+                            <div class="archive-search-wrap">
+                                <div class="archive-search-icon">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <input
+                                    type="text"
+                                    id="archiveSearch"
+                                    class="archive-search-input"
+                                    placeholder="Search by year, title, company, or tech…"
+                                    autocomplete="off"
+                                />
+                                <span class="archive-search-count" id="archiveCount"></span>
+                            </div>
                             <div class="whole-responsive">
                                 <div class="table-wrapper-archive">
                                     <div class="col-year common-col">Year</div>
@@ -291,6 +346,9 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                <div class="archive-no-results" id="archiveNoResults" style="display:none;">
+                                    <span>No projects match your search.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -847,15 +905,17 @@
                                     <span class="tag-dec">&lt;articles&gt;</span>
                                     <article class="post-articles">
                                         <div class="blog-post-title">
-                                            <h5>
+                                            <h3 style="font-size:inherit; font-weight:inherit; margin:0;">
                                                 <a href="{{ route('blogs', $article->slug) }}" target="_blank"
                                                     style="color: {{ $article->color }}">
                                                     {{ $article->title }}
                                                 </a>
-                                            </h5>
+                                            </h3>
                                         </div>
-                                        <time
-                                            class="post-date">{{ \Carbon\Carbon::parse($article->created_at)->format('F d, Y') }}</time>
+                                        <div class="post-meta-row">
+                                            <time class="post-date">{{ \Carbon\Carbon::parse($article->created_at)->format('F d, Y') }}</time>
+                                            <span class="reading-time"><i class="fa-regular fa-clock"></i> {{ $article->reading_time }} min read</span>
+                                        </div>
                                         <div class="blog-post-content">
                                             <p>{!! Str_limit(strip_tags($article->description), 140) !!}</p>
                                         </div>
@@ -957,11 +1017,103 @@
         </div>
     </div>
 
-    {{-- Lines Grid removed --}}
 @endsection
 
 
 @push('scripts')
+    <script>
+        (function () {
+            function fetchVisitors() {
+                fetch('{{ route('live.visitors') }}')
+                    .then(function (r) { return r.json(); })
+                    .then(function (d) {
+                        var el = document.getElementById('onlineCount');
+                        if (el) el.textContent = d.count;
+                    })
+                    .catch(function () {});
+            }
+
+            function fetchGitHub() {
+                fetch('{{ route('live.github') }}')
+                    .then(function (r) { return r.json(); })
+                    .then(function (d) {
+                        var reposEl = document.querySelector('#ghRepos .gh-val');
+                        var starsEl = document.querySelector('#ghStars .gh-val');
+                        var langEl  = document.querySelector('#ghLang .gh-val');
+                        if (reposEl) reposEl.textContent = d.repos;
+                        if (starsEl) starsEl.textContent = d.stars;
+                        if (langEl)  langEl.textContent  = d.language;
+                        var wrap = document.getElementById('ghStats');
+                        if (wrap && d.repos !== '—') wrap.classList.add('gh-loaded');
+                    })
+                    .catch(function () {});
+            }
+
+            function fetchSpotify() {
+                fetch('{{ route('live.spotify') }}')
+                    .then(function (r) { return r.json(); })
+                    .then(function (d) {
+                        var badge   = document.getElementById('spotifyBadge');
+                        var track   = document.getElementById('spotifyTrack');
+                        var artist  = document.getElementById('spotifyArtist');
+                        var cover   = document.getElementById('spotifyCover');
+                        if (!badge) return;
+                        if (d.playing) {
+                            track.textContent  = d.title;
+                            artist.textContent = d.artist;
+                            cover.src          = d.cover || '';
+                            cover.style.display = d.cover ? 'block' : 'none';
+                            badge.href         = d.url;
+                            badge.style.display = 'flex';
+                        } else {
+                            badge.style.display = 'none';
+                        }
+                    })
+                    .catch(function () {});
+            }
+
+            fetchVisitors();
+            fetchGitHub();
+            fetchSpotify();
+            setInterval(fetchVisitors, 30000);
+            setInterval(fetchSpotify, 30000);
+        })();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var input   = document.getElementById('archiveSearch');
+            var counter = document.getElementById('archiveCount');
+            var noRes   = document.getElementById('archiveNoResults');
+            var rows    = Array.from(document.querySelectorAll('.table-tt'));
+            var total   = rows.length;
+
+            function updateCount(visible) {
+                counter.textContent = visible === total ? '' : visible + ' / ' + total;
+            }
+
+            updateCount(total);
+
+            input.addEventListener('input', function () {
+                var q = this.value.trim().toLowerCase();
+                var visible = 0;
+
+                rows.forEach(function (row) {
+                    var text = row.textContent.toLowerCase();
+                    if (!q || text.includes(q)) {
+                        row.classList.remove('archive-hidden');
+                        visible++;
+                    } else {
+                        row.classList.add('archive-hidden');
+                    }
+                });
+
+                updateCount(visible);
+                noRes.style.display = visible === 0 ? 'block' : 'none';
+            });
+        });
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var btn = document.getElementById('viewResume');

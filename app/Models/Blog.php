@@ -37,6 +37,12 @@ class Blog extends Model
     //     return $this->belongsTo(BlogCategory::class,'blog_athors');
     // }
 
+    public function getReadingTimeAttribute(): int
+    {
+        $words = str_word_count(strip_tags($this->description ?? ''));
+        return max(1, (int) ceil($words / 200));
+    }
+
     public function scopeStatus($query)
     {
         return $query->where('publish_status',1);

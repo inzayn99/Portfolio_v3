@@ -16,61 +16,85 @@ class BlogController extends Controller
         return view('backend.blogs.index', compact('blogs','cat'));
     }
 
-    public function create()
-    {
-        $cat = BlogCategory::latest()->get();
-        return view('backend.blogs.create',compact('cat'));
-    }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'cover_image' => 'nullable|string|max:250',
-            'banner_image' => 'nullable|string|max:250',
-            'title'    => 'required',
-            'description'    => 'required',
-            'blog_category'=>'required|integer',
+            'cover_image' => 'nullable|image|max:5120',
+            'banner_image' => 'nullable|image|max:5120',
+            'og_image'    => 'nullable|image|max:5120',
+            'title'       => 'required',
+            'description' => 'required',
+            'blog_category' => 'required|integer',
             'meta_title'  => 'nullable',
-            'og_image' => 'nullable|string|max:250',
-            'blog_type'=>'required',
-            'posted_by'=>'nullable|max:250'
+            'blog_type'   => 'required',
+            'posted_by'   => 'nullable|max:250',
         ]);
-        // $image = $request->cover_image;
-        // $explode = explode($image, )
-        $input = $request->all();
-        $input['slug'] = Str::slug($request->title);
-        $input['publish_status']= $request->publish_status??0;
+
+        $input = $request->except(['cover_image', 'banner_image', 'og_image']);
+        $input['slug']           = Str::slug($request->title);
+        $input['publish_status'] = $request->publish_status ?? 0;
+
+        foreach (['cover_image', 'banner_image', 'og_image'] as $field) {
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $name = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/blogs'), $name);
+                $input[$field] = 'uploads/blogs/' . $name;
+            }
+        }
+
         Blog::create($input);
-        return redirect()->route('blogs.index')->with('success', 'Blog information is created successfully.');
+
+        if (request()->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Post created successfully.']);
+        }
+        return redirect()->route('blogs.index')->with('success', 'Blog post created successfully.');
+    }
+
+    public function show($id)
+    {
+        return response()->json(Blog::findOrFail($id));
     }
 
     public function edit($id)
     {
         $blog = Blog::findorFail($id);
         $cat = BlogCategory::latest()->get();
-        // $types = json_decode($blog->blog_type);
-        // return $types;
         return view('backend.blogs.create', compact('blog','cat'));
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'cover_image' => 'nullable|string|max:250',
-            'banner_image' => 'nullable|string|max:250',
-            'title'    => 'required',
-            'description'    => 'required',
-            'blog_category'=>'required|integer',
-            'og_image' => 'nullable|string|max:250',
-            'blog_type'=>'required',
-            'posted_by'=>'nullable|max:255'
+            'cover_image'   => 'nullable|image|max:5120',
+            'banner_image'  => 'nullable|image|max:5120',
+            'og_image'      => 'nullable|image|max:5120',
+            'title'         => 'required',
+            'description'   => 'required',
+            'blog_category' => 'required|integer',
+            'blog_type'     => 'required',
+            'posted_by'     => 'nullable|max:255',
         ]);
 
-        $input = $request->all();
-        // $input['blog_type']= json_encode($request->blog_type);
-        $input['slug'] = Str::slug($request->title);
-        $input['publish_status']= $request->publish_status??0;
+        $input = $request->except(['cover_image', 'banner_image', 'og_image']);
+        $input['slug']           = Str::slug($request->title);
+        $input['publish_status'] = $request->publish_status ?? 0;
+
+        foreach (['cover_image', 'banner_image', 'og_image'] as $field) {
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $name = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/blogs'), $name);
+                $input[$field] = 'uploads/blogs/' . $name;
+            }
+        }
+
         Blog::findOrFail($id)->update($input);
+
+        if (request()->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Post updated successfully.']);
+        }
         return redirect()->route('blogs.index')->with('success', 'Updated successfully.');
     }
 

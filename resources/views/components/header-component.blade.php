@@ -70,24 +70,24 @@
     <!-- Started socials -->
     <div class="social">
 
-        <a target="_blank" href="{{ $setting->linkedin }}">
-            <i class="icon fa-brands fa-linkedin-in"></i>
+        <a target="_blank" href="{{ $setting->linkedin }}" aria-label="LinkedIn profile" rel="noopener noreferrer">
+            <i class="icon fa-brands fa-linkedin-in" aria-hidden="true"></i>
         </a>
-        <a target="_blank" href="{{ $setting->twitter }}">
-            <i class="icon fa-brands fa-x-twitter"></i>
+        <a target="_blank" href="{{ $setting->twitter }}" aria-label="X (Twitter) profile" rel="noopener noreferrer">
+            <i class="icon fa-brands fa-x-twitter" aria-hidden="true"></i>
         </a>
-        <a target="_blank" href="{{ $setting->spotify }}">
-            <i class="icon fa-brands fa-spotify"></i>
+        <a target="_blank" href="{{ $setting->spotify }}" aria-label="Spotify playlist" rel="noopener noreferrer">
+            <i class="icon fa-brands fa-spotify" aria-hidden="true"></i>
         </a>
-        <a target="_blank" href="{{ $setting->github }}">
-            <i class="icon fa-brands fa-github"></i>
+        <a target="_blank" href="{{ $setting->github }}" aria-label="GitHub profile" rel="noopener noreferrer">
+            <i class="icon fa-brands fa-github" aria-hidden="true"></i>
         </a>
-        <a target="_blank" href="https://api.whatsapp.com/send?phone={{ $setting->whatsapp }}">
-            <i class="icon fa-brands fa-whatsapp"></i>
+        <a target="_blank" href="https://api.whatsapp.com/send?phone={{ $setting->whatsapp }}" aria-label="Contact on WhatsApp" rel="noopener noreferrer">
+            <i class="icon fa-brands fa-whatsapp" aria-hidden="true"></i>
         </a>
 
-        <a target="_blank" href="https://drive.google.com/file/d/1mBSxYiEjvCoLg0infB9EPIJwtSFLC0ZM/view">
-            <span class="icon la la-download" style="font-size: 20px !important;"></span>
+        <a target="_blank" href="https://drive.google.com/file/d/1mBSxYiEjvCoLg0infB9EPIJwtSFLC0ZM/view" aria-label="Download CV" rel="noopener noreferrer">
+            <span class="icon la la-download" style="font-size: 20px !important;" aria-hidden="true"></span>
         </a>
     </div>
     <!-- Mobile Menu -->

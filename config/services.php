@@ -28,6 +28,24 @@ return [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-    ]
+    ],
+
+    'github' => [
+        'username' => env('GITHUB_USERNAME', ''),
+        'token'    => env('GITHUB_TOKEN', ''),
+    ],
+
+    'lastfm' => [
+        'api_key'  => env('LASTFM_API_KEY', ''),
+        'username' => env('LASTFM_USERNAME', ''),
+    ],
+
+    'openai' => [
+        'key' => env('OPENAI_API_KEY', ''),
+    ],
+
+    'anthropic' => [
+        'key' => env('ANTHROPIC_API_KEY', ''),
+    ],
 
 ];

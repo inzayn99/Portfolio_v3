@@ -13,13 +13,13 @@
                 <div class="card-wrap blog-content-col col col-m-12 col-t-12 col-d-12 col-d-lg-6" data-simplebar>
 
                     <!-- Inner Top -->
-                    <div class="content inner-top">
+                    {{-- <div class="content inner-top">
                         <div class="row">
                             <div class="col col-m-12 col-t-12 col-d-12 col-d-lg-12">
                                 <div class="title-bg">{{ Str::limit($blog->title, 20) }}</div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Blog Single -->
                     <div class="content blog-single">
@@ -28,10 +28,46 @@
                                 <div class="post-box card-box"
                                     style="background: transparent !important; -webkit-box-shadow: none;">
                                     <h1>{{ $blog->title }}</h1>
-                                    <div class="blog-detail">Posted: {{ $blog->created_at->format('d F Y') }}</div>
+                                    <div class="blog-detail">
+                                        Posted: {{ $blog->created_at->format('d F Y') }}
+                                        <span class="reading-time">
+                                            <i class="fa-regular fa-clock"></i> {{ $blog->reading_time }} min read
+                                        </span>
+                                    </div>
                                     <div class="blog-content">
                                         {!! $blog->description !!}
                                     </div>
+
+                                    <!-- Prev / Next Navigation -->
+                                    @if($prev || $next)
+                                    <div class="blog-prevnext">
+                                        <div class="blog-prevnext-item prev-item">
+                                            @if($prev)
+                                            <a href="{{ route('blogs', $prev->slug) }}" class="prevnext-link">
+                                                <span class="prevnext-dir">
+                                                    <i class="fa-solid fa-arrow-left"></i> Previous
+                                                </span>
+                                                <span class="prevnext-title">{{ Str::limit($prev->title, 55) }}</span>
+                                                <span class="prevnext-date">{{ $prev->created_at->format('d M Y') }}</span>
+                                            </a>
+                                            @endif
+                                        </div>
+
+                                        <div class="prevnext-divider"></div>
+
+                                        <div class="blog-prevnext-item next-item">
+                                            @if($next)
+                                            <a href="{{ route('blogs', $next->slug) }}" class="prevnext-link next-link">
+                                                <span class="prevnext-dir">
+                                                    Next <i class="fa-solid fa-arrow-right"></i>
+                                                </span>
+                                                <span class="prevnext-title">{{ Str::limit($next->title, 55) }}</span>
+                                                <span class="prevnext-date">{{ $next->created_at->format('d M Y') }}</span>
+                                            </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @endif
 
                                     <!-- Share Buttons -->
                                     <div class="blog-share">
@@ -262,6 +298,86 @@
         /* Hide SimpleBar scrollbar track on blog content */
         #blog-card .blog-content-col .simplebar-track {
             display: none !important;
+        }
+
+        /* Prev / Next navigation */
+        .blog-prevnext {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin-top: 40px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .blog-prevnext-item {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .prevnext-link {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 20px 22px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.02);
+            transition: background 0.2s;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .prevnext-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .next-item .prevnext-link {
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .prevnext-dir {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .next-item .prevnext-dir {
+            justify-content: flex-end;
+        }
+
+        .prevnext-link:hover .prevnext-dir {
+            color: #40d392;
+        }
+
+        .prevnext-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ccc;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .prevnext-link:hover .prevnext-title {
+            color: #fff;
+        }
+
+        .prevnext-date {
+            font-size: 11px;
+            color: #444;
+        }
+
+        .prevnext-divider {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
         }
 
         /* Share buttons */
